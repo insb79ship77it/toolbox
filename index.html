@@ -4,25 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>WebTools - 무료 웹 도구 모음 (IP조회, 글자수세기, UTM생성기 등)</title>
-    <meta name="description" content="IP 주소 조회, 실시간 글자수 계산, 랜덤 이름 생성, UTM 파라미터 생성 등 개발자와 마케터를 위한 11가지 스마트 웹 도구 모음입니다.">
-    <meta name="keywords" content="IP조회, 글자수세기, UTM생성기, 줄바꿈제거, JSON정렬, Base64변환, D-Day계산기, 웹도구">
-    <meta name="author" content="WebTools">
+    <!-- 기본 SEO / OG 메타 태그 (초기 기본값) -->
+    <title id="meta-title">WebTools - 스마트 웹 도구 모음</title>
+    <meta id="meta-desc" name="description" content="IP조회, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
+    <meta id="meta-keywords" name="keywords" content="웹도구, IP조회, 글자수세기, UTM생성기">
     <meta name="robots" content="index, follow">
 
+    <meta id="og-title" property="og:title" content="WebTools - 스마트 웹 도구 모음">
+    <meta id="og-desc" property="og:description" content="IP조회, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="WebTools - 모든 스마트 웹 도구 한곳에">
-    <meta property="og:description" content="IP조회, 글자수 세기, UTM 생성 등 자주쓰는 11가지 스마트 웹 도구를 무료로 이용해보세요.">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=WebTools+All-In-One">
-    <meta property="og:url" content="https://<본인아이디>.github.io/<저장소이름>/">
-    <meta property="og:site_name" content="WebTools Collection">
+    <meta id="og-url" property="og:url" content="https://<본인아이디>.github.io/<저장소이름>/">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=WebTools">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="WebTools - 모든 스마트 웹 도구 한곳에">
-    <meta name="twitter:description" content="IP조회, 글자수 세기, UTM 생성 등 자주쓰는 11가지 스마트 웹 도구 모음">
-    <meta name="twitter:image" content="https://via.placeholder.com/1200x630.png?text=WebTools+All-In-One">
-
+    <!-- Pretendard 웹폰트 -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- Leaflet CSS (지도) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
@@ -97,7 +93,6 @@
             color: var(--accent-color);
         }
 
-        /* 드롭다운 메뉴 스타일 */
         .dropdown {
             position: relative;
             display: inline-block;
@@ -200,7 +195,6 @@
             gap: 8px;
         }
 
-        /* 하단 가이드 문서 전용 카드 스타일 */
         .doc-card {
             background: #fafbfc;
             border: 1px solid var(--border-color);
@@ -224,17 +218,12 @@
             color: var(--accent-color);
             margin: 1rem 0 0.4rem 0;
         }
-        .doc-card p {
+        .doc-card p, .doc-card ul {
             font-size: 0.88rem;
             color: var(--text-secondary);
             margin-bottom: 0.6rem;
         }
-        .doc-card ul {
-            padding-left: 1.2rem;
-            font-size: 0.88rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.6rem;
-        }
+        .doc-card ul { padding-left: 1.2rem; }
         .doc-card li { margin-bottom: 0.3rem; }
 
         .input-text, .textarea-text {
@@ -246,7 +235,6 @@
             outline: none;
             transition: border-color 0.2s;
         }
-
         .input-text:focus, .textarea-text:focus { border-color: var(--accent-color); }
 
         .btn {
@@ -260,7 +248,6 @@
             font-weight: 600;
             transition: background 0.2s;
         }
-
         .btn:hover { background: #1b64da; }
         .btn-secondary { background: #8b95a1; }
         .btn-secondary:hover { background: #6b7684; }
@@ -286,7 +273,6 @@
             margin-top: 1rem;
         }
 
-        /* 푸터 스타일 */
         footer {
             background: var(--card-bg);
             border-top: 1px solid var(--border-color);
@@ -294,10 +280,7 @@
             text-align: center;
             margin-top: auto;
         }
-        footer p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
+        footer p { font-size: 0.85rem; color: var(--text-secondary); }
     </style>
 </head>
 <body>
@@ -329,6 +312,7 @@
     </header>
 
     <main>
+        <!-- 메인 대시보드 -->
         <div id="page-home" class="page active">
             <h2 style="font-size: 1.5rem; font-weight: 800;">웹 도구 모음</h2>
             <p style="color: var(--text-secondary);">자주 쓰는 스마트 웹 도구 모음입니다. 상단 메뉴나 아래 카드를 클릭하세요.</p>
@@ -348,6 +332,7 @@
             </div>
         </div>
 
+        <!-- 1. IP 조회 -->
         <div id="page-ip" class="page">
             <div class="card" style="text-align: center;">
                 <form style="display: flex; gap: 8px; justify-content: center; margin-bottom: 1rem;" onsubmit="handleSearch(event)">
@@ -382,13 +367,12 @@
                 <h4>공인 IP vs 사설 IP</h4>
                 <ul>
                     <li><b>공인 IP (Public IP):</b> ISP(통신사)가 부여하며, 인터넷 상에서 유일하게 식별되는 외부 접속용 주소입니다.</li>
-                    <li><b>사설 IP (Private IP):</b> 공유기 내부에서 각 기기(스마트폰, PC 등)에 할당되는 내부 주소(예: 192.168.x.x)입니다. 본 도구는 공인 IP 정보를 조회합니다.</li>
+                    <li><b>사설 IP (Private IP):</b> 공유기 내부에서 각 기기(스마트폰, PC 등)에 할당되는 내부 주소입니다.</li>
                 </ul>
-                <h4>위치 데이터의 정확도</h4>
-                <p>IP 기반 위치 추적은 GPS 수준의 정밀한 실시간 위치가 아니라, 해당 IP를 소유한 통신사(ISP)의 기지국이나 네트워크 거점의 대략적인 국가 및 도시 위치를 보여줍니다.</p>
             </div>
         </div>
 
+        <!-- 2. 글자수 세기 -->
         <div id="page-counter" class="page">
             <div class="card">
                 <div class="card-title">📝 실시간 글자수 계산기</div>
@@ -411,20 +395,16 @@
 
             <div class="doc-card">
                 <h3>💡 글자수 및 바이트(Byte) 계산 방식 안내</h3>
-                <p>원고 작성, 블로그 포스팅, 자기소개서 작성, 문자 메시지(SMS/LMS) 전송 시 필수적인 글자수 측정 지식입니다.</p>
+                <p>원고 작성, 블로그 포스팅, 자기소개서 작성시 필수적인 글자수 측정 지식입니다.</p>
                 <h4>바이트(Byte) 계산 기준</h4>
                 <ul>
-                    <li><b>영문, 숫자, 특수문자, 공백:</b> 1글자당 <b>1 Byte</b> (ASCII 코드 기준)</li>
-                    <li><b>한글, 한자, 일본어:</b> UTF-8 인코딩 기준으로 1글자당 <b>3 Byte</b> (EUC-KR 시스템에 따라 2 Byte로 계산되는 플랫폼도 있습니다)</li>
-                </ul>
-                <h4>주요 플랫폼 작성 권장량</h4>
-                <ul>
-                    <li><b>네이버 블로그:</b> 상위 노출을 위해 보통 1,500자 ~ 2,000자(공백 포함) 권장</li>
-                    <li><b>단문 문자(SMS):</b> 80 Byte 이하 / <b>장문 문자(LMS):</b> 2,000 Byte 이하</li>
+                    <li><b>영문/숫자/공백:</b> 1글자당 <b>1 Byte</b></li>
+                    <li><b>한글/한자:</b> UTF-8 인코딩 기준 1글자당 <b>3 Byte</b></li>
                 </ul>
             </div>
         </div>
 
+        <!-- 3. 랜덤 이름 생성 -->
         <div id="page-name" class="page">
             <div class="card" style="text-align: center;">
                 <div class="card-title" style="justify-content: center;">🎲 스타일별 이름 생성기</div>
@@ -438,16 +418,11 @@
 
             <div class="doc-card">
                 <h3>💡 카테고리별 이름 생성 가이드</h3>
-                <p>게임 닉네임, 캐릭터 naming, 브랜딩 작업 시 영감을 얻을 수 있도록 제작된 무작위 생성 도구입니다.</p>
-                <h4>카테고리 특징</h4>
-                <ul>
-                    <li><b>판타지:</b> 게임, 소설, RPG 게임 캐릭터용 에픽 호칭 및 칭호 조합</li>
-                    <li><b>한글 이름:</b> 자연스러운 성씨와 어울리는 세련된 현대 한글 이름 아이디어</li>
-                    <li><b>브랜드명:</b> 스타트업, 서비스, 마케팅 프로젝트에 활용하기 좋은 트렌디한 네이밍</li>
-                </ul>
+                <p>게임 닉네임, 캐릭터 naming, 브랜딩 작업 시 영감을 얻을 수 있는 랜덤 생성 도구입니다.</p>
             </div>
         </div>
 
+        <!-- 4. UTM 생성기 -->
         <div id="page-utm" class="page">
             <div class="card">
                 <div class="card-title">🔗 UTM 파라미터 생성기</div>
@@ -460,18 +435,12 @@
             </div>
 
             <div class="doc-card">
-                <h3>💡 UTM(Urchin Tracking Module) 지식 가이드</h3>
-                <p>UTM 태그는 URL 끝에 붙는 파라미터 코드로, 구글 애널리틱스(GA4) 등에서 어떤 매체나 광고를 통해 유저가 유입되었는지 정밀 분석할 때 사용합니다.</p>
-                <h4>핵심 요수 파라미터</h4>
-                <ul>
-                    <li><b>utm_source (필수):</b> 유입 출처 (예: `naver`, `facebook`, `newsletter`)</li>
-                    <li><b>utm_medium (권장):</b> 유입 마케팅 수단 (예: `cpc`, `email`, `social`, `banner`)</li>
-                    <li><b>utm_campaign:</b> 특정 이벤트/캠페인 명칭 (예: `2026_spring_event`)</li>
-                </ul>
-                <p><b>💡 Tip:</b> 대소문자를 구별하므로 소문자 통일을 권장하며, 띄어쓰기 대신 언더바(`_`)나 하이픈(`-`)을 사용하는 것이 좋습니다.</p>
+                <h3>💡 UTM 파라미터 가이드</h3>
+                <p>GA4 및 유입 마케팅 추적을 위한 전용 URL 조합기입니다.</p>
             </div>
         </div>
 
+        <!-- 5. 줄바꿈 제거기 -->
         <div id="page-line" class="page">
             <div class="card">
                 <div class="card-title">✂️ 줄바꿈 / 공백 제거기</div>
@@ -483,19 +452,9 @@
                 </div>
                 <textarea id="line-output" class="textarea-text" rows="6" readonly placeholder="결과가 여기에 표시됩니다."></textarea>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 텍스트 가공 및 정돈 도구 가이드</h3>
-                <p>문서 작업, PDF 텍스트 복사, 데이터 정제 작업 시 발생하는 불필요한 서식과 줄바꿈을 빠르게 교정합니다.</p>
-                <h4>주요 기능 설명</h4>
-                <ul>
-                    <li><b>줄바꿈 제거:</b> PDF나 웹 페이지에서 복사해 문장 중간중간 짤린 엔터(`\n`)값을 띄어쓰기 한 칸으로 이어 붙여 줍니다.</li>
-                    <li><b>공백 전체 제거:</b> 문장 내 모든 스페이스바/탭 공백을 지워 텍스트를 붙입니다.</li>
-                    <li><b>연속 공백 하나로:</b> 여러 번 중복 입력된 공백을 1개의 깔끔한 공백으로 정돈합니다.</li>
-                </ul>
-            </div>
         </div>
 
+        <!-- 6. 대소문자 변환기 -->
         <div id="page-case" class="page">
             <div class="card">
                 <div class="card-title">🔠 영문 대소문자 변환기</div>
@@ -508,18 +467,9 @@
                 </div>
                 <textarea id="case-output" class="textarea-text" rows="5" readonly></textarea>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 영문 케이스(Case) 표기법 지식</h3>
-                <p>프로그래밍, 마케팅 문구 작성, 파일명 네이밍 시 상황에 맞게 텍스트 형식을 변경합니다.</p>
-                <ul>
-                    <li><b>UPPERCASE / lowercase:</b> 영문 전체를 일괄 대문자 또는 소문자로 전환.</li>
-                    <li><b>Title Case:</b> 단어의 첫 글자만 대문자로 변환 (영문 제목 스타일).</li>
-                    <li><b>snake_case:</b> 띄어쓰기를 언더바(`_`)로 치환하여 소문자로 조합 (데이터베이스 칼럼명, 파일명 등에서 사용).</li>
-                </ul>
-            </div>
         </div>
 
+        <!-- 7. JSON 정렬기 -->
         <div id="page-json" class="page">
             <div class="card">
                 <div class="card-title">🔍 JSON Format & Validator</div>
@@ -530,18 +480,9 @@
                 </div>
                 <textarea id="json-output" class="textarea-text" rows="6" readonly></textarea>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 JSON(JavaScript Object Notation) 가이드</h3>
-                <p>JSON은 경량의 데이터 교환 형식으로, 서버와 웹 브라우저 간 데이터를 주고받을 때 표준으로 사용됩니다.</p>
-                <h4>기능 활용 안내</h4>
-                <ul>
-                    <li><b>Pretty Print (정렬):</b> 압축되어 알아보기 힘든 한 줄짜리 JSON 데이터를 들여쓰기 구조로 정돈하여 가독성을 높입니다. 문법 오류 시 알림을 제공합니다.</li>
-                    <li><b>Minify (축소):</b> 데이터 전송 용량을 최소화하기 위해 불필요한 공백과 줄바꿈을 제거합니다.</li>
-                </ul>
-            </div>
         </div>
 
+        <!-- 8. Base64 변환기 -->
         <div id="page-base64" class="page">
             <div class="card">
                 <div class="card-title">🔐 Base64 인코더 / 디코더</div>
@@ -552,15 +493,9 @@
                 </div>
                 <textarea id="base64-output" class="textarea-text" rows="5" readonly></textarea>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 Base64 인코딩 원리와 활용</h3>
-                <p>Base64는 8비트 이진 데이터(Binary Data)를 ASCII 문자 집합(64개 문자: A-Z, a-z, 0-9, +, /)으로 변환하는 인코딩 방식입니다.</p>
-                <h4>사용 목적</h4>
-                <p>이메일 시스템이나 웹 HTTP 프로토콜 전송 시, 바이너리 데이터(이미지, 파일 등)가 시스템 간 제어 문자로 해석되어 유실되는 현상을 막기 위한 데이터 안전 보장용입니다. (보안 목적의 암호화 기술이 아니므로 원본 복원이 가능합니다)</p>
-            </div>
         </div>
 
+        <!-- 9. URL 인코딩/디코딩 -->
         <div id="page-url" class="page">
             <div class="card">
                 <div class="card-title">🌐 URL 인코더 / 디코더</div>
@@ -571,34 +506,18 @@
                 </div>
                 <textarea id="url-output" class="textarea-text" rows="5" readonly></textarea>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 URL 퍼센트 인코딩(Percent Encoding) 정보</h3>
-                <p>인터넷 표준 URL에는 ASCII 코드의 특정 문자만 포함될 수 있습니다. 한글, 특수문자, 띄어쓰기 등은 안전한 형태로 변환되어야 합니다.</p>
-                <ul>
-                    <li><b>인코딩 예시:</b> '아이플' $\rightarrow$ `%EC%95%84%EC%9D%B4%ED%94%8C`</li>
-                    <li><b>사용 시점:</b> 한글이 포함된 주소를 공유하거나 API 호출 시 깨짐 방지를 위해 인코딩을 적용합니다.</li>
-                </ul>
-            </div>
         </div>
 
+        <!-- 10. D-Day 계산기 -->
         <div id="page-dday" class="page">
             <div class="card">
                 <div class="card-title">📅 D-Day 계산기</div>
                 <div class="form-group"><label>목표 날짜 선택</label><input type="date" id="dday-date" class="input-text" onchange="calcDday()" /></div>
                 <div id="dday-result" class="result-box">날짜를 선택해 주세요.</div>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 D-Day 날짜 계산 가이드</h3>
-                <p>중요한 프로젝트 마감일, 시험, 기념일 등의 남은 일수와 지난 일수를 자정(00:00) 기준으로 계산합니다.</p>
-                <ul>
-                    <li><b>D- (남은 일수):</b> 앞으로 다가올 목표일 표기 (예: D-30)</li>
-                    <li><b>D+ (지난 일수):</b> 특정 기준일로부터 경과한 일수 표기 (예: D+100)</li>
-                </ul>
-            </div>
         </div>
 
+        <!-- 11. PX REM 변환기 -->
         <div id="page-pxrem" class="page">
             <div class="card">
                 <div class="card-title">📏 PX ↔ REM 단위 변환기</div>
@@ -607,16 +526,6 @@
                     <div class="form-group" style="flex:1;"><label>PX</label><input type="number" id="val-px" class="input-text" placeholder="16" oninput="calcPxRem('px')" /></div>
                     <div class="form-group" style="flex:1;"><label>REM</label><input type="number" id="val-rem" class="input-text" placeholder="1" oninput="calcPxRem('rem')" /></div>
                 </div>
-            </div>
-
-            <div class="doc-card">
-                <h3>💡 CSS PX vs REM 단위 지식</h3>
-                <p>웹 디자인 및 프론트엔드 개발 시 반응형 레이아웃 구축을 위해 사용되는 단위 비교입니다.</p>
-                <ul>
-                    <li><b>PX (Pixel):</b> 화면의 절대적인 고정 단위입니다. 디바이스 환경에 따라 글자가 고정됩니다.</li>
-                    <li><b>REM (Root EM):</b> 최상위 요소(`<html>`)의 폰트 크기(기본 16px)를 기준으로 한 상대적인 단위입니다. 접근성 향상 및 반응형 디자인에 필수적입니다.</li>
-                </ul>
-                <p><b>계산식:</b> `REM = PX / Base PX` (예: 24px / 16px = 1.5rem)</p>
             </div>
         </div>
     </main>
@@ -627,14 +536,95 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // 드롭다운 토글 기능
-        function toggleDropdown(event) {
-            event.stopPropagation();
-            const dropdown = document.getElementById('tools-dropdown');
-            dropdown.classList.toggle('show');
+        // 각 도구별 SEO 메타 정보 정의
+        const toolMeta = {
+            home: {
+                title: "WebTools - 스마트 웹 도구 모음",
+                desc: "IP조회, 실시간 글자수 계산, UTM 생성기 등 스마트 웹 도구 모음입니다.",
+                keywords: "웹도구, IP조회, 글자수세기, UTM생성기"
+            },
+            ip: {
+                title: "내 IP 주소 및 위치 조회 - WebTools",
+                desc: "내 공인 IP 주소와 통신사, 정확한 기지국 도시 위치 및 지도를 즉시 확인하세요.",
+                keywords: "IP조회, 내IP, IP위치, 통신사조회"
+            },
+            counter: {
+                title: "실시간 글자수 세기 & 바이트 계산기 - WebTools",
+                desc: "공백 포함/제외 글자 수와 UTF-8 기준 바이트(Byte)를 실시간으로 계산해 드립니다.",
+                keywords: "글자수세기, 바이트계산기, 자기소개서글자수, 블로그글자수"
+            },
+            name: {
+                title: "랜덤 이름 및 닉네임 생성기 - WebTools",
+                desc: "판타지, 한글 세련된 이름, 브랜드명을 무작위로 다양하게 만들어 드립니다.",
+                keywords: "이름생성기, 닉네임생성기, 브랜드네이밍"
+            },
+            utm: {
+                title: "UTM 파라미터 URL 생성기 - WebTools",
+                desc: "구글 애널리틱스(GA4) 마케팅 유입 경로 분석을 위한 UTM 링크를 자동 조합합니다.",
+                keywords: "UTM생성기, GA4, 마케팅추적, URL파라미터"
+            },
+            line: {
+                title: "줄바꿈 및 공백 제거기 - WebTools",
+                desc: "PDF 복사문 또는 문서의 불필요한 엔터값과 공백을 일괄 정리합니다.",
+                keywords: "줄바꿈제거, 엔터제거, 공백제거"
+            },
+            case: {
+                title: "영문 대소문자 & 케이스 변환기 - WebTools",
+                desc: "대문자, 소문자, Title Case, snake_case 등 영문 서식을 손쉽게 변환하세요.",
+                keywords: "대소문자변환, snake_case, TitleCase"
+            },
+            json: {
+                title: "JSON 정렬기 & 문법 검증기 - WebTools",
+                desc: "압축된 JSON 데이터를 보기 좋게 정렬(Pretty)하거나 한 줄로 줄여 드립니다.",
+                keywords: "JSON정렬, JSONValidator, PrettyPrint"
+            },
+            base64: {
+                title: "Base64 인코더 / 디코더 - WebTools",
+                desc: "텍스트 및 데이터를 Base64 인코딩 및 디코딩할 수 있는 간편 도구입니다.",
+                keywords: "Base64, 인코딩, 디코딩"
+            },
+            url: {
+                title: "URL 퍼센트 인코더 / 디코더 - WebTools",
+                desc: "URL 상의 한글 및 특수문자 깨짐을 방지하는 퍼센트 인코딩 도구입니다.",
+                keywords: "URL인코딩, 퍼센트인코딩, URL디코딩"
+            },
+            dday: {
+                title: "D-Day 계산기 - WebTools",
+                desc: "중요한 일정이나 기념일까지 남은 날짜(D-) 및 지난 날짜(D+)를 계산합니다.",
+                keywords: "Dday계산기, 디데이, 날짜계산"
+            },
+            pxrem: {
+                title: "PX ↔ REM 단위 변환기 - WebTools",
+                desc: "반응형 웹 디자인을 위한 픽셀(PX)과 REM 상대 단위 간 실시간 변환 도구입니다.",
+                keywords: "PXREM변환, CSS단위, 반응형웹"
+            }
+        };
+
+        function updateSEO(pageId) {
+            const meta = toolMeta[pageId] || toolMeta['home'];
+            
+            // Document Title
+            document.title = meta.title;
+
+            // Meta 태그 동적 변경
+            const metaDesc = document.getElementById('meta-desc');
+            const metaKeywords = document.getElementById('meta-keywords');
+            const ogTitle = document.getElementById('og-title');
+            const ogDesc = document.getElementById('og-desc');
+            const ogUrl = document.getElementById('og-url');
+
+            if (metaDesc) metaDesc.setAttribute('content', meta.desc);
+            if (metaKeywords) metaKeywords.setAttribute('content', meta.keywords);
+            if (ogTitle) ogTitle.setAttribute('content', meta.title);
+            if (ogDesc) ogDesc.setAttribute('content', meta.desc);
+            if (ogUrl) ogUrl.setAttribute('content', window.location.href);
         }
 
-        // 바깥 영역 클릭 시 드롭다운 닫기
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            document.getElementById('tools-dropdown').classList.toggle('show');
+        }
+
         window.onclick = function(event) {
             const dropdown = document.getElementById('tools-dropdown');
             if (dropdown && dropdown.classList.contains('show')) {
@@ -642,33 +632,55 @@
             }
         }
 
-        function switchPage(pageId) {
+        function switchPage(pageId, updateHistory = true) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(m => m.classList.remove('active'));
             
-            document.getElementById(`page-${pageId}`).classList.add('active');
+            const targetPage = document.getElementById(`page-${pageId}`) ? pageId : 'home';
+            document.getElementById(`page-${targetPage}`).classList.add('active');
             
-            // 네비게이션 활성화 처리
-            const navElem = document.getElementById(`nav-${pageId}`);
+            const navElem = document.getElementById(`nav-${targetPage}`);
             if (navElem) {
                 navElem.classList.add('active');
             } else {
-                // 드롭다운 내부 항목 선택 시 드롭다운 타이틀 활성화
                 const dropdownTitle = document.querySelector('#tools-dropdown .nav-item');
                 if (dropdownTitle) dropdownTitle.classList.add('active');
             }
 
-            // 지도 로딩 갱신
-            if (pageId === 'ip' && mapInstance) {
+            // SEO 정보 변경
+            updateSEO(targetPage);
+
+            // 브라우저 주소창 URL 업데이트 (?tool=값)
+            if (updateHistory) {
+                const newUrl = targetPage === 'home' 
+                    ? window.location.pathname 
+                    : `${window.location.pathname}?tool=${targetPage}`;
+                history.pushState({ tool: targetPage }, '', newUrl);
+            }
+
+            if (targetPage === 'ip' && mapInstance) {
                 setTimeout(() => mapInstance.invalidateSize(), 200);
             }
             
-            // 페이지 이동 시 상단으로 스크롤
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // 뒤로가기 / 앞으로가기 브라우저 이벤트 처리
+        window.onpopstate = function(event) {
+            const params = new URLSearchParams(window.location.search);
+            const tool = params.get('tool') || 'home';
+            switchPage(tool, false);
+        };
+
+        // 초기 페이지 로드 시 URL 파라미터 감지 처리
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const initialTool = params.get('tool') || 'home';
+            switchPage(initialTool, false);
+        });
+
         // --- IP 조회 ---
-        let mapInstance = null, mapMarker = null, currentDisplayedIP = '', myOwnIP = '';
+        let mapInstance = null, mapMarker = null;
         function getSystemInfo() {
             const ua = navigator.userAgent;
             let os = "Unknown", browser = "Unknown";
@@ -695,19 +707,17 @@
                 const res = await fetch(queryUrl);
                 const data = await res.json();
                 if (!data.error) {
-                    currentDisplayedIP = data.ip;
-                    if (!ipToFetch) myOwnIP = data.ip;
-                    document.getElementById('ip').textContent = currentDisplayedIP;
-                    document.getElementById('location').textContent = `${data.country_name || '-'}, ${data.city || '-'}`;
+                    document.getElementById('ip').textContent = data.ip;
+                    document.getElementById('location').textContent = `${data.country_name \vert{}\vert{} '-'},${data.city || '-'}`;
                     document.getElementById('isp').textContent = data.org || data.asn || '-';
                     document.getElementById('asn').textContent = data.asn || '-';
                     document.getElementById('timezone').textContent = data.timezone || '-';
-                    if (data.latitude && data.longitude) updateMap(data.latitude, data.longitude, currentDisplayedIP);
+                    if (data.latitude && data.longitude) updateMap(data.latitude, data.longitude);
                 }
             } catch (e) { console.error(e); }
         }
 
-        function updateMap(lat, lon, label) {
+        function updateMap(lat, lon) {
             if (!mapInstance) {
                 mapInstance = L.map('map').setView([lat, lon], 12);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap' }).addTo(mapInstance);
