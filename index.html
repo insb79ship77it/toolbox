@@ -6,12 +6,12 @@
     
     <!-- 기본 SEO / OG 메타 태그 -->
     <title id="meta-title">WebTools - 스마트 웹 도구 모음</title>
-    <meta id="meta-desc" name="description" content="IP조회, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
-    <meta id="meta-keywords" name="keywords" content="웹도구, IP조회, 글자수세기, UTM생성기, 개발자도구, 마케팅도구">
+    <meta id="meta-desc" name="description" content="IP조회, 인터넷 속도 측정, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
+    <meta id="meta-keywords" name="keywords" content="웹도구, IP조회, 속도측정, 인터넷속도, 글자수세기, UTM생성기, 개발자도구">
     <meta name="robots" content="index, follow">
 
     <meta id="og-title" property="og:title" content="WebTools - 스마트 웹 도구 모음">
-    <meta id="og-desc" property="og:description" content="IP조회, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
+    <meta id="og-desc" property="og:description" content="IP조회, 인터넷 속도 측정, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
     <meta property="og:type" content="website">
     <meta id="og-url" property="og:url" content="https://insb79ship77it.github.io/toolbox/">
     <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=WebTools">
@@ -252,6 +252,7 @@
             transition: background 0.2s;
         }
         .btn:hover { background: #1b64da; }
+        .btn:disabled { background: #b0b8c1; cursor: not-allowed; }
         .btn-secondary { background: #8b95a1; }
         .btn-secondary:hover { background: #6b7684; }
 
@@ -276,6 +277,48 @@
             margin-top: 1rem;
         }
 
+        /* 속도측정 게이지 & 프로그레스 바 커스텀 */
+        .speed-gauge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .speed-value-display {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin: 0.2rem 0;
+            transition: color 0.3s;
+        }
+        
+        /* 실시간 프로그레스 바 스타일 */
+        .progress-track {
+            width: 100%;
+            max-width: 380px;
+            height: 10px;
+            background-color: var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 1.2rem 0 1.5rem 0;
+            position: relative;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #3182f6, #00c6ff);
+            border-radius: 5px;
+            transition: width 0.15s linear;
+        }
+        .progress-fill.active-pulse {
+            animation: pulse-glow 1.5s infinite alternate;
+        }
+        @keyframes pulse-glow {
+            0% { opacity: 0.85; }
+            100% { opacity: 1; filter: drop-shadow(0 0 6px rgba(49, 130, 246, 0.6)); }
+        }
+
         footer {
             background: var(--card-bg);
             border-top: 1px solid var(--border-color);
@@ -294,6 +337,7 @@
             <ul class="nav-menu">
                 <li class="nav-item active" id="nav-home" data-target="home">홈</li>
                 <li class="nav-item" id="nav-ip" data-target="ip">IP조회</li>
+                <li class="nav-item" id="nav-speed" data-target="speed">속도측정</li>
                 <li class="nav-item" id="nav-counter" data-target="counter">글자수</li>
                 <li class="nav-item" id="nav-name" data-target="name">랜덤이름</li>
                 
@@ -322,6 +366,7 @@
             
             <div class="tools-grid">
                 <div class="tool-card" data-target="ip"><div class="tool-icon">🌐</div><div class="tool-title">IP 주소 조회</div><div class="tool-desc">IP 위치, 통신사 및 지도 조회</div></div>
+                <div class="tool-card" data-target="speed"><div class="tool-icon">⚡</div><div class="tool-title">인터넷 속도 측정</div><div class="tool-desc">다운로드 및 핑(Ping) 속도 측정</div></div>
                 <div class="tool-card" data-target="counter"><div class="tool-icon">📝</div><div class="tool-title">글자수 세기</div><div class="tool-desc">공백 포함/제외 및 바이트 계산</div></div>
                 <div class="tool-card" data-target="name"><div class="tool-icon">🎲</div><div class="tool-title">랜덤 이름 생성</div><div class="tool-desc">스타일별 이름/닉네임 생성</div></div>
                 <div class="tool-card" data-target="utm"><div class="tool-icon">🔗</div><div class="tool-title">UTM 생성기</div><div class="tool-desc">마케팅 추적용 URL 자동 조합</div></div>
@@ -377,7 +422,49 @@
             </div>
         </div>
 
-        <!-- 2. 글자수 세기 -->
+        <!-- 2. 인터넷 속도 측정 -->
+        <div id="page-speed" class="page">
+            <div class="card" style="text-align: center;">
+                <div class="card-title" style="justify-content: center;">⚡ 인터넷 다운로드 & 핑 측정</div>
+                
+                <div class="speed-gauge-container">
+                    <div style="font-size: 0.9rem; color: var(--text-secondary);" id="speed-status">측정 버튼을 눌러주세요.</div>
+                    <div class="speed-value-display" id="speed-download">0.00</div>
+                    <div style="font-weight: 700; color: var(--text-secondary); margin-bottom: 0.5rem;">Mbps</div>
+
+                    <!-- 실시간 프로그레스 바 -->
+                    <div class="progress-track">
+                        <div class="progress-fill" id="speed-progress"></div>
+                    </div>
+                    
+                    <button class="btn" id="btn-start-speed" style="padding: 12px 28px; font-size: 1.05rem;">측정 시작</button>
+                </div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1.2rem;">
+                    <div style="flex: 1; background: var(--bg-color); padding: 1rem; border-radius: 8px;">
+                        <div id="speed-ping" style="font-size: 1.5rem; font-weight: 800; color: var(--accent-color);">-</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">지연시간 (Ping)</div>
+                    </div>
+                    <div style="flex: 1; background: var(--bg-color); padding: 1rem; border-radius: 8px;">
+                        <div id="speed-jitter" style="font-size: 1.5rem; font-weight: 800; color: var(--accent-color);">-</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">지터 (Jitter)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="doc-card">
+                <h3>💡 인터넷 속도 측정 가이드</h3>
+                <p>현재 연결된 Wi-Fi 또는 셀룰러 네트워크의 실시간 다운로드 속도와 지연시간(Latency)을 정밀 체크합니다.</p>
+                <h4>용어 안내</h4>
+                <ul>
+                    <li><b>Mbps (Megabits per second):</b> 초당 전송되는 데이터 양입니다. 100Mbps 속도는 1초에 약 12.5MB의 데이터를 다운로드할 수 있음을 의미합니다.</li>
+                    <li><b>Ping (지연시간):</b> 내 기기에서 서버까지 데이터가 오가는 데 걸리는 시간(ms)입니다. 수치가 낮을수록 응답 속도가 빠릅니다 (게임/화상통화에 중요).</li>
+                    <li><b>Jitter (지터):</b> 핑 지연시간의 변동폭입니다. 수치가 낮고 일정할수록 네트워크 상태가 안정적입니다.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3. 글자수 세기 -->
         <div id="page-counter" class="page">
             <div class="card">
                 <div class="card-title">📝 실시간 글자수 계산기</div>
@@ -409,7 +496,7 @@
             </div>
         </div>
 
-        <!-- 3. 랜덤 이름 생성 -->
+        <!-- 4. 랜덤 이름 생성 -->
         <div id="page-name" class="page">
             <div class="card" style="text-align: center;">
                 <div class="card-title" style="justify-content: center;">🎲 스타일별 이름 생성기</div>
@@ -432,7 +519,7 @@
             </div>
         </div>
 
-        <!-- 4. UTM 생성기 -->
+        <!-- 5. UTM 생성기 -->
         <div id="page-utm" class="page">
             <div class="card">
                 <div class="card-title">🔗 UTM 파라미터 생성기</div>
@@ -456,7 +543,7 @@
             </div>
         </div>
 
-        <!-- 5. 줄바꿈 제거기 -->
+        <!-- 6. 줄바꿈 제거기 -->
         <div id="page-line" class="page">
             <div class="card">
                 <div class="card-title">✂️ 줄바꿈 / 공백 제거기</div>
@@ -480,7 +567,7 @@
             </div>
         </div>
 
-        <!-- 6. 대소문자 변환기 -->
+        <!-- 7. 대소문자 변환기 -->
         <div id="page-case" class="page">
             <div class="card">
                 <div class="card-title">🔠 영문 대소문자 변환기</div>
@@ -505,7 +592,7 @@
             </div>
         </div>
 
-        <!-- 7. JSON 정렬기 -->
+        <!-- 8. JSON 정렬기 -->
         <div id="page-json" class="page">
             <div class="card">
                 <div class="card-title">🔍 JSON Format & Validator</div>
@@ -528,7 +615,7 @@
             </div>
         </div>
 
-        <!-- 8. Base64 변환기 -->
+        <!-- 9. Base64 변환기 -->
         <div id="page-base64" class="page">
             <div class="card">
                 <div class="card-title">🔐 Base64 인코더 / 디코더</div>
@@ -550,7 +637,7 @@
             </div>
         </div>
 
-        <!-- 9. URL 인코딩/디코딩 -->
+        <!-- 10. URL 인코딩/디코딩 -->
         <div id="page-url" class="page">
             <div class="card">
                 <div class="card-title">🌐 URL 인코더 / 디코더</div>
@@ -572,7 +659,7 @@
             </div>
         </div>
 
-        <!-- 10. D-Day 계산기 -->
+        <!-- 11. D-Day 계산기 -->
         <div id="page-dday" class="page">
             <div class="card">
                 <div class="card-title">📅 D-Day 계산기</div>
@@ -590,7 +677,7 @@
             </div>
         </div>
 
-        <!-- 11. PX REM 변환기 -->
+        <!-- 12. PX REM 변환기 -->
         <div id="page-pxrem" class="page">
             <div class="card">
                 <div class="card-title">📏 PX ↔ REM 단위 변환기</div>
@@ -619,8 +706,9 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const toolMeta = {
-            home: { title: "WebTools - 스마트 웹 도구 모음", desc: "IP조회, 실시간 글자수 계산, UTM 생성기 등 스마트 웹 도구 모음입니다.", keywords: "웹도구, IP조회, 글자수세기, UTM생성기" },
+            home: { title: "WebTools - 스마트 웹 도구 모음", desc: "IP조회, 인터넷 속도 측정, 실시간 글자수 계산 등 스마트 웹 도구 모음입니다.", keywords: "웹도구, IP조회, 속도측정, 글자수세기" },
             ip: { title: "내 IP 주소 및 위치 조회 - WebTools", desc: "내 공인 IP 주소와 통신사, 정확한 기지국 도시 위치 및 지도를 즉시 확인하세요.", keywords: "IP조회, 내IP, IP위치, 통신사조회" },
+            speed: { title: "인터넷 속도 측정 (Speed Test) - WebTools", desc: "실시간 인터넷 다운로드 속도와 Ping 지연시간을 간편하게 테스트하세요.", keywords: "인터넷속도측정, 속도체크, ping측정, Mbps" },
             counter: { title: "실시간 글자수 세기 & 바이트 계산기 - WebTools", desc: "공백 포함/제외 글자 수와 UTF-8 기준 바이트(Byte)를 실시간으로 계산해 드립니다.", keywords: "글자수세기, 바이트계산기, 자기소개서글자수, 블로그글자수" },
             name: { title: "랜덤 이름 및 닉네임 생성기 - WebTools", desc: "판타지, 한글 세련된 이름, 브랜드명을 무작위로 다양하게 만들어 드립니다.", keywords: "이름생성기, 닉네임생성기, 브랜드네이밍" },
             utm: { title: "UTM 파라미터 URL 생성기 - WebTools", desc: "구글 애널리틱스(GA4) 마케팅 유입 경로 분석을 위한 UTM 링크를 자동 조합합니다.", keywords: "UTM생성기, GA4, 마케팅추적, URL파라미터" },
@@ -687,7 +775,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // 모든 스위치 이벤트 리스너 통합 등록
+            // 모든 페이지 전환 이벤트 리스너 통합 등록
             document.querySelectorAll('[data-target]').forEach(elem => {
                 elem.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -708,14 +796,14 @@
                 });
             }
 
-            // 외부 클릭 시 드롭다운 닫기
+            // 외부 영역 클릭 시 드롭다운 닫기
             document.addEventListener('click', () => {
                 if (dropdown && dropdown.classList.contains('show')) {
                     dropdown.classList.remove('show');
                 }
             });
 
-            // IP 조회 기능
+            // IP 조회 기능 초기화
             getSystemInfo();
             fetchIPData();
 
@@ -735,6 +823,10 @@
                     fetchIPData('');
                 });
             }
+
+            // 속도 측정 바인딩
+            const btnSpeed = document.getElementById('btn-start-speed');
+            if (btnSpeed) btnSpeed.addEventListener('click', runSpeedTest);
 
             // 글자수 세기
             const textInput = document.getElementById('text-input');
@@ -846,6 +938,103 @@
                 mapInstance.setView([lat, lon], 12);
                 mapMarker.setLatLng([lat, lon]);
             }
+        }
+
+        // 인터넷 속도 측정 함수 (실시간 프로그레스 바 포함)
+        async function runSpeedTest() {
+            const btn = document.getElementById('btn-start-speed');
+            const status = document.getElementById('speed-status');
+            const speedDisplay = document.getElementById('speed-download');
+            const pingDisplay = document.getElementById('speed-ping');
+            const jitterDisplay = document.getElementById('speed-jitter');
+            const progressBar = document.getElementById('speed-progress');
+
+            btn.disabled = true;
+            btn.textContent = '측정 중...';
+            speedDisplay.textContent = '0.00';
+            pingDisplay.textContent = '-';
+            jitterDisplay.textContent = '-';
+            
+            progressBar.classList.add('active-pulse');
+            progressBar.style.width = '5%';
+
+            // 1. Ping 및 Jitter 측정
+            status.textContent = '지연시간(Ping) 측정 중...';
+            const pings = [];
+            for (let i = 0; i < 5; i++) {
+                const start = performance.now();
+                try {
+                    await fetch('https://httpbin.org/get?t=' + Math.random(), { cache: 'no-store' });
+                    const end = performance.now();
+                    pings.push(end - start);
+                } catch (e) {}
+                progressBar.style.width = `${(i + 1) * 4}%`; // Ping 진행률 (0~20%)
+            }
+
+            let avgPing = 0;
+            if (pings.length > 0) {
+                avgPing = pings.reduce((a, b) => a + b) / pings.length;
+                pingDisplay.textContent = Math.round(avgPing) + ' ms';
+                
+                // Jitter 계산
+                let jitterSum = 0;
+                for (let i = 0; i < pings.length - 1; i++) {
+                    jitterSum += Math.abs(pings[i] - pings[i+1]);
+                }
+                const avgJitter = pings.length > 1 ? jitterSum / (pings.length - 1) : 0;
+                jitterDisplay.textContent = Math.round(avgJitter) + ' ms';
+            }
+
+            // 2. 다운로드 속도 측정 (실시간 데이터 바이트 수신 비율 애니메이션)
+            status.textContent = '다운로드 속도 측정 중...';
+            const testFileUrl = 'https://fetch-proxy.fastly.com/5MB.bin?t=' + Math.random();
+            const fallbackUrl = 'https://picsum.photos/2000/2000?t=' + Math.random();
+            const totalEstimatedBytes = 5 * 1024 * 1024; // 약 5MB 기준
+
+            const startTime = performance.now();
+            let loadedBytes = 0;
+
+            try {
+                const response = await fetch(testFileUrl, { cache: 'no-store' });
+                if (!response.ok) throw new Error('네트워크 응답 실패');
+                
+                const reader = response.body.getReader();
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    loadedBytes += value.length;
+                    
+                    const duration = (performance.now() - startTime) / 1000;
+                    if (duration > 0) {
+                        const currentMbps = ((loadedBytes * 8) / (1024 * 1024) / duration).toFixed(2);
+                        speedDisplay.textContent = currentMbps;
+
+                        // 진행률 계산 (20% ~ 95%)
+                        const downloadPercent = Math.min(75, Math.floor((loadedBytes / totalEstimatedBytes) * 75));
+                        progressBar.style.width = `${20 + downloadPercent}%`;
+                    }
+                }
+            } catch (e) {
+                // 대체 자원 테스트
+                try {
+                    progressBar.style.width = '50%';
+                    const altStart = performance.now();
+                    const altRes = await fetch(fallbackUrl, { cache: 'no-store' });
+                    const blob = await altRes.blob();
+                    const altDuration = (performance.now() - altStart) / 1000;
+                    const altMbps = ((blob.size * 8) / (1024 * 1024) / altDuration).toFixed(2);
+                    speedDisplay.textContent = altMbps;
+                } catch (err) {
+                    status.textContent = '측정에 실패했습니다. 네트워크 상태를 확인하세요.';
+                }
+            }
+
+            progressBar.style.width = '100%';
+            progressBar.classList.remove('active-pulse');
+            status.textContent = '측정이 완료되었습니다.';
+            btn.disabled = false;
+            btn.textContent = '다시 측정';
         }
 
         function countText() {
