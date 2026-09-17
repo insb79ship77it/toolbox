@@ -6,12 +6,12 @@
     
     <!-- 기본 SEO / OG 메타 태그 -->
     <title id="meta-title">WebTools - 스마트 웹 도구 모음</title>
-    <meta id="meta-desc" name="description" content="IP조회, 인터넷 속도 측정, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
-    <meta id="meta-keywords" name="keywords" content="웹도구, IP조회, 속도측정, 인터넷속도, 글자수세기, UTM생성기, 개발자도구">
+    <meta id="meta-desc" name="description" content="IP조회, 인터넷 속도체크, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
+    <meta id="meta-keywords" name="keywords" content="웹도구, IP조회, 속도체크, 인터넷속도, 글자수세기, UTM생성기, 개발자도구">
     <meta name="robots" content="index, follow">
 
     <meta id="og-title" property="og:title" content="WebTools - 스마트 웹 도구 모음">
-    <meta id="og-desc" property="og:description" content="IP조회, 인터넷 속도 측정, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
+    <meta id="og-desc" property="og:description" content="IP조회, 인터넷 속도체크, 글자수 계산, UTM 생성기 등 다양한 스마트 웹 도구 모음입니다.">
     <meta property="og:type" content="website">
     <meta id="og-url" property="og:url" content="https://insb79ship77it.github.io/toolbox/">
     <meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=WebTools">
@@ -277,7 +277,7 @@
             margin-top: 1rem;
         }
 
-        /* 속도측정 게이지 & 프로그레스 바 커스텀 */
+        /* 속도측정 커스텀 스타일 */
         .speed-gauge-container {
             display: flex;
             flex-direction: column;
@@ -292,8 +292,6 @@
             margin: 0.2rem 0;
             transition: color 0.3s;
         }
-        
-        /* 실시간 프로그레스 바 스타일 */
         .progress-track {
             width: 100%;
             max-width: 380px;
@@ -310,13 +308,6 @@
             background: linear-gradient(90deg, #3182f6, #00c6ff);
             border-radius: 5px;
             transition: width 0.15s linear;
-        }
-        .progress-fill.active-pulse {
-            animation: pulse-glow 1.5s infinite alternate;
-        }
-        @keyframes pulse-glow {
-            0% { opacity: 0.85; }
-            100% { opacity: 1; filter: drop-shadow(0 0 6px rgba(49, 130, 246, 0.6)); }
         }
 
         footer {
@@ -337,7 +328,7 @@
             <ul class="nav-menu">
                 <li class="nav-item active" id="nav-home" data-target="home">홈</li>
                 <li class="nav-item" id="nav-ip" data-target="ip">IP조회</li>
-                <li class="nav-item" id="nav-speed" data-target="speed">속도측정</li>
+                <li class="nav-item" id="nav-speed" data-target="speed">속도체크</li>
                 <li class="nav-item" id="nav-counter" data-target="counter">글자수</li>
                 <li class="nav-item" id="nav-name" data-target="name">랜덤이름</li>
                 
@@ -366,7 +357,7 @@
             
             <div class="tools-grid">
                 <div class="tool-card" data-target="ip"><div class="tool-icon">🌐</div><div class="tool-title">IP 주소 조회</div><div class="tool-desc">IP 위치, 통신사 및 지도 조회</div></div>
-                <div class="tool-card" data-target="speed"><div class="tool-icon">⚡</div><div class="tool-title">인터넷 속도 측정</div><div class="tool-desc">다운로드 및 핑(Ping) 속도 측정</div></div>
+                <div class="tool-card" data-target="speed"><div class="tool-icon">⚡</div><div class="tool-title">인터넷 속도체크</div><div class="tool-desc">Cloudflare 멀티 스트림 기반 초고속 측정</div></div>
                 <div class="tool-card" data-target="counter"><div class="tool-icon">📝</div><div class="tool-title">글자수 세기</div><div class="tool-desc">공백 포함/제외 및 바이트 계산</div></div>
                 <div class="tool-card" data-target="name"><div class="tool-icon">🎲</div><div class="tool-title">랜덤 이름 생성</div><div class="tool-desc">스타일별 이름/닉네임 생성</div></div>
                 <div class="tool-card" data-target="utm"><div class="tool-icon">🔗</div><div class="tool-title">UTM 생성기</div><div class="tool-desc">마케팅 추적용 URL 자동 조합</div></div>
@@ -417,27 +408,24 @@
                     <li><b>공인 IP (Public IP):</b> 인터넷 서비스 제공업체(ISP)가 할당하며, 외부망에서 내 기기를 식별할 때 사용됩니다.</li>
                     <li><b>사설 IP (Private IP):</b> 공유기 내부망에서 스마트폰, PC 등에 개별적으로 할당하는 내부 전용 주소입니다.</li>
                 </ul>
-                <h4>위치 정확도 안내</h4>
-                <p>표시되는 지도 및 도시 정보는 통신사의 기지국 및 ISP 거점 기반 위치이므로 실제 물리적 위치와는 차이가 있을 수 있습니다.</p>
             </div>
         </div>
 
-        <!-- 2. 인터넷 속도 측정 -->
+        <!-- 2. 인터넷 속도체크 -->
         <div id="page-speed" class="page">
             <div class="card" style="text-align: center;">
-                <div class="card-title" style="justify-content: center;">⚡ 인터넷 다운로드 & 핑 측정</div>
+                <div class="card-title" style="justify-content: center;">⚡ 인터넷 다운로드 & 핑 속도체크</div>
                 
                 <div class="speed-gauge-container">
                     <div style="font-size: 0.9rem; color: var(--text-secondary);" id="speed-status">측정 버튼을 눌러주세요.</div>
                     <div class="speed-value-display" id="speed-download">0.00</div>
                     <div style="font-weight: 700; color: var(--text-secondary); margin-bottom: 0.5rem;">Mbps</div>
 
-                    <!-- 실시간 프로그레스 바 -->
                     <div class="progress-track">
                         <div class="progress-fill" id="speed-progress"></div>
                     </div>
                     
-                    <button class="btn" id="btn-start-speed" style="padding: 12px 28px; font-size: 1.05rem;">측정 시작</button>
+                    <button class="btn" id="btn-start-speed" style="padding: 12px 28px; font-size: 1.05rem;">속도 측정 시작</button>
                 </div>
 
                 <div style="display: flex; gap: 1rem; margin-top: 1rem; border-top: 1px solid var(--border-color); padding-top: 1.2rem;">
@@ -453,13 +441,13 @@
             </div>
 
             <div class="doc-card">
-                <h3>💡 인터넷 속도 측정 가이드</h3>
-                <p>현재 연결된 Wi-Fi 또는 셀룰러 네트워크의 실시간 다운로드 속도와 지연시간(Latency)을 정밀 체크합니다.</p>
+                <h3>💡 인터넷 속도체크 가이드</h3>
+                <p>Cloudflare 한국 에지 네트워크와 6개의 멀티 스트림(병렬 연결)을 통해 회선의 실제 속도에 가깝게 대역폭을 측정합니다.</p>
                 <h4>용어 안내</h4>
                 <ul>
-                    <li><b>Mbps (Megabits per second):</b> 초당 전송되는 데이터 양입니다. 100Mbps 속도는 1초에 약 12.5MB의 데이터를 다운로드할 수 있음을 의미합니다.</li>
-                    <li><b>Ping (지연시간):</b> 내 기기에서 서버까지 데이터가 오가는 데 걸리는 시간(ms)입니다. 수치가 낮을수록 응답 속도가 빠릅니다 (게임/화상통화에 중요).</li>
-                    <li><b>Jitter (지터):</b> 핑 지연시간의 변동폭입니다. 수치가 낮고 일정할수록 네트워크 상태가 안정적입니다.</li>
+                    <li><b>Mbps (Megabits per second):</b> 초당 전송되는 데이터 양입니다. (100Mbps = 1초당 약 12.5MB 수신)</li>
+                    <li><b>Ping (지연시간):</b> 내 기기에서 서버까지 데이터 응답 속도(ms)입니다. 수치가 낮을수록 좋습니다.</li>
+                    <li><b>Jitter (지터):</b> 핑 지연시간의 변동폭입니다. 수치가 낮을수록 네트워크가 안정적입니다.</li>
                 </ul>
             </div>
         </div>
@@ -484,16 +472,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 글자수 및 바이트(Byte) 계산 가이드</h3>
-                <p>자기소개서, 원고 작성, 네이버 블로그 및 SNS 플랫폼 포스팅 시 규격에 맞는 글자수를 확인하는 도구입니다.</p>
-                <h4>바이트(Byte) 계산 표준</h4>
-                <ul>
-                    <li><b>영문, 숫자, 특수문자, 공백:</b> 1글자당 <b>1 Byte</b></li>
-                    <li><b>한글, 한자, 이모지:</b> UTF-8 인코딩 기준으로 1글자당 <b>3 Byte</b> 계산</li>
-                </ul>
-            </div>
         </div>
 
         <!-- 4. 랜덤 이름 생성 -->
@@ -506,16 +484,6 @@
                     <button class="btn btn-name-gen" data-type="brand">브랜드명</button>
                 </div>
                 <div id="generated-name" class="result-box">버튼을 클릭하세요</div>
-            </div>
-
-            <div class="doc-card">
-                <h3>💡 스타일별 랜덤 이름 활용 가이드</h3>
-                <p>게임 캐릭터 닉네임, 작명, 브랜드 네이밍, 소설 및 콘텐츠 제작 시 아이디어를 얻을 수 있습니다.</p>
-                <ul>
-                    <li><b>판타지:</b> 게임, RPG, 웹소설에 어울리는 판타지 스타일의 칭호 및 이름</li>
-                    <li><b>한글 이름:</b> 자연스럽고 세련된 현대 한국인 성명</li>
-                    <li><b>브랜드명:</b> IT 스타트업, 웹서비스, 네이밍에 적합한 영문 신조어 조합</li>
-                </ul>
             </div>
         </div>
 
@@ -530,17 +498,6 @@
                 <button class="btn" id="btn-gen-utm">UTM 생성하기</button>
                 <div id="utm-result" class="result-box">-</div>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 UTM 파라미터 활용 가이드</h3>
-                <p>구글 애널리틱스(GA4) 등 웹 분석 도구에서 유입 경로를 정확하게 추적하기 위한 URL 태그 조합 도구입니다.</p>
-                <h4>필수 파라미터 항목</h4>
-                <ul>
-                    <li><b>utm_source:</b> 방문자가 유입된 출처 (예: google, naver, newsletter)</li>
-                    <li><b>utm_medium:</b> 마케팅 채널 매체 (예: cpc, email, banner, social)</li>
-                    <li><b>utm_campaign:</b> 특정 프로모션 및 캠페인명 (예: 2026_spring_sale)</li>
-                </ul>
-            </div>
         </div>
 
         <!-- 6. 줄바꿈 제거기 -->
@@ -554,16 +511,6 @@
                     <button class="btn btn-secondary btn-line-proc" data-action="single-space">연속 공백 하나로</button>
                 </div>
                 <textarea id="line-output" class="textarea-text" rows="6" readonly placeholder="결과가 여기에 표시됩니다."></textarea>
-            </div>
-
-            <div class="doc-card">
-                <h3>💡 줄바꿈 및 공백 정돈 가이드</h3>
-                <p>PDF 문서나 웹페이지 원문 복사 시 불필요하게 쪼개진 엔터(줄바꿈)나 과도한 띄어쓰기를 한 번에 정리할 수 있습니다.</p>
-                <ul>
-                    <li><b>줄바꿈 제거:</b> 문단 내 모든 줄바꿈을 공백 한 칸으로 교체하여 한 문단으로 재구성합니다.</li>
-                    <li><b>공백 전체 제거:</b> 띄어쓰기를 포함한 모든 공백 문자를 완전히 삭제합니다.</li>
-                    <li><b>연속 공백 하나로:</b> 다중 스페이스바 및 탭 문자를 깔끔하게 스페이스 1개로 변환합니다.</li>
-                </ul>
             </div>
         </div>
 
@@ -580,16 +527,6 @@
                 </div>
                 <textarea id="case-output" class="textarea-text" rows="5" readonly></textarea>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 영문 서식 변환 가이드</h3>
-                <p>프로그래밍 변수 작성, 논문 표기, 영문 제목 작성 시 원하는 텍스트 표기법으로 일괄 변환합니다.</p>
-                <ul>
-                    <li><b>UPPERCASE / lowercase:</b> 전체 영문 문자를 대문자 또는 소문자로 변환합니다.</li>
-                    <li><b>Title Case:</b> 각 단어의 첫 글자만 대문자로 표기합니다 (제목용 서식).</li>
-                    <li><b>snake_case:</b> 띄어쓰기를 언더바(_)로 교체하고 모두 소문자 처리합니다 (개발자 변수용).</li>
-                </ul>
-            </div>
         </div>
 
         <!-- 8. JSON 정렬기 -->
@@ -602,16 +539,6 @@
                     <button class="btn btn-secondary" id="btn-json-minify">한 줄로 축소 (Minify)</button>
                 </div>
                 <textarea id="json-output" class="textarea-text" rows="6" readonly></textarea>
-            </div>
-
-            <div class="doc-card">
-                <h3>💡 JSON 포맷터 및 검증 가이드</h3>
-                <p>개발 작업 중 API 응답값 등 압축된 JSON 문서를 분석 가능한 형태로 정렬하거나 문법 오류를 검증합니다.</p>
-                <ul>
-                    <li><b>Pretty Print:</b> 한 줄로 뭉쳐진 JSON 데이터를 4스페이스 들여쓰기로 보기 쉽게 정렬합니다.</li>
-                    <li><b>Minify:</b> 전송 용량을 줄이기 위해 불필요한 공백과 줄바꿈을 제거하고 한 줄로 만듭니다.</li>
-                    <li><b>유효성 검사:</b> JSON 문법 규칙(따옴표, 콤마 등)에 어긋날 경우 경고 메시지를 출력합니다.</li>
-                </ul>
             </div>
         </div>
 
@@ -626,15 +553,6 @@
                 </div>
                 <textarea id="base64-output" class="textarea-text" rows="5" readonly></textarea>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 Base64 인코딩 가이드</h3>
-                <p>Base64는 8비트 이진 데이터를 ASCII 영역의 문자들로 인코딩하여 시스템 간 안전한 데이터 전달을 돕습니다.</p>
-                <ul>
-                    <li><b>UTF-8 완벽 지원:</b> 한글 및 특수문자 깨짐 현상을 방지하도록 안전 처리되었습니다.</li>
-                    <li><b>활용 분야:</b> 이메일 데이터 전송, 웹 인증 토큰(JWT), 텍스트 기반 데이터 포맷 변환 시 사용됩니다.</li>
-                </ul>
-            </div>
         </div>
 
         <!-- 10. URL 인코딩/디코딩 -->
@@ -648,15 +566,6 @@
                 </div>
                 <textarea id="url-output" class="textarea-text" rows="5" readonly></textarea>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 URL 퍼센트 인코딩 가이드</h3>
-                <p>웹 브라우저 주소창(URL)에 한글, 특수문자, 공백이 포함될 때 오류가 발생하는 것을 방지하는 변환 기술입니다.</p>
-                <ul>
-                    <li><b>URL 인코딩:</b> 한글 및 특수 기호를 `%EC%95%88%EB%83%85` 형태의 ASCII 코드 값으로 전환합니다.</li>
-                    <li><b>URL 디코딩:</b> 암호화되듯 변환된 퍼센트 텍스트를 사람이 읽을 수 있는 원본 문자열로 복원합니다.</li>
-                </ul>
-            </div>
         </div>
 
         <!-- 11. D-Day 계산기 -->
@@ -665,15 +574,6 @@
                 <div class="card-title">📅 D-Day 계산기</div>
                 <div class="form-group"><label>목표 날짜 선택</label><input type="date" id="dday-date" class="input-text" /></div>
                 <div id="dday-result" class="result-box">날짜를 선택해 주세요.</div>
-            </div>
-
-            <div class="doc-card">
-                <h3>💡 D-Day 날짜 계산 가이드</h3>
-                <p>시험, 중요 행사, 기념일, 결제일 등 목표 날짜까지 남아있는 일수를 실시간 계산합니다.</p>
-                <ul>
-                    <li><b>D- (남은 날짜):</b> 지정한 미래의 날짜까지 남아있는 일수</li>
-                    <li><b>D+ (지난 날짜):</b> 지정한 과거의 날짜로부터 경과한 일수</li>
-                </ul>
             </div>
         </div>
 
@@ -687,15 +587,6 @@
                     <div class="form-group" style="flex:1;"><label>REM</label><input type="number" id="val-rem" class="input-text" placeholder="1" /></div>
                 </div>
             </div>
-
-            <div class="doc-card">
-                <h3>💡 PX 및 REM 단위 계산 가이드</h3>
-                <p>반응형 웹 디자인 개발 시 절대 단위인 PX(픽셀)와 상대 단위인 REM을 상호 변환해 주는 도구입니다.</p>
-                <ul>
-                    <li><b>Base PX:</b> 웹 브라우저의 기본 루트(html) 폰트 크기이며, 일반 표준값은 <b>16px</b>입니다.</li>
-                    <li><b>REM 계산 공식:</b> `REM = PX ÷ Base PX` (예: 24px ÷ 16px = 1.5rem)</li>
-                </ul>
-            </div>
         </div>
     </main>
 
@@ -706,19 +597,19 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         const toolMeta = {
-            home: { title: "WebTools - 스마트 웹 도구 모음", desc: "IP조회, 인터넷 속도 측정, 실시간 글자수 계산 등 스마트 웹 도구 모음입니다.", keywords: "웹도구, IP조회, 속도측정, 글자수세기" },
-            ip: { title: "내 IP 주소 및 위치 조회 - WebTools", desc: "내 공인 IP 주소와 통신사, 정확한 기지국 도시 위치 및 지도를 즉시 확인하세요.", keywords: "IP조회, 내IP, IP위치, 통신사조회" },
-            speed: { title: "인터넷 속도 측정 (Speed Test) - WebTools", desc: "실시간 인터넷 다운로드 속도와 Ping 지연시간을 간편하게 테스트하세요.", keywords: "인터넷속도측정, 속도체크, ping측정, Mbps" },
-            counter: { title: "실시간 글자수 세기 & 바이트 계산기 - WebTools", desc: "공백 포함/제외 글자 수와 UTF-8 기준 바이트(Byte)를 실시간으로 계산해 드립니다.", keywords: "글자수세기, 바이트계산기, 자기소개서글자수, 블로그글자수" },
-            name: { title: "랜덤 이름 및 닉네임 생성기 - WebTools", desc: "판타지, 한글 세련된 이름, 브랜드명을 무작위로 다양하게 만들어 드립니다.", keywords: "이름생성기, 닉네임생성기, 브랜드네이밍" },
-            utm: { title: "UTM 파라미터 URL 생성기 - WebTools", desc: "구글 애널리틱스(GA4) 마케팅 유입 경로 분석을 위한 UTM 링크를 자동 조합합니다.", keywords: "UTM생성기, GA4, 마케팅추적, URL파라미터" },
-            line: { title: "줄바꿈 및 공백 제거기 - WebTools", desc: "PDF 복사문 또는 문서의 불필요한 엔터값과 공백을 일괄 정리합니다.", keywords: "줄바꿈제거, 엔터제거, 공백제거" },
-            case: { title: "영문 대소문자 & 케이스 변환기 - WebTools", desc: "대문자, 소문자, Title Case, snake_case 등 영문 서식을 손쉽게 변환하세요.", keywords: "대소문자변환, snake_case, TitleCase" },
-            json: { title: "JSON 정렬기 & 문법 검증기 - WebTools", desc: "압축된 JSON 데이터를 보기 좋게 정렬(Pretty)하거나 한 줄로 줄여 드립니다.", keywords: "JSON정렬, JSONValidator, PrettyPrint" },
-            base64: { title: "Base64 인코더 / 디코더 - WebTools", desc: "텍스트 및 데이터를 Base64 인코딩 및 디코딩할 수 있는 간편 도구입니다.", keywords: "Base64, 인코딩, 디코딩" },
-            url: { title: "URL 퍼센트 인코더 / 디코더 - WebTools", desc: "URL 상의 한글 및 특수문자 깨짐을 방지하는 퍼센트 인코딩 도구입니다.", keywords: "URL인코딩, 퍼센트인코딩, URL디코딩" },
-            dday: { title: "D-Day 계산기 - WebTools", desc: "중요한 일정이나 기념일까지 남은 날짜(D-) 및 지난 날짜(D+)를 계산합니다.", keywords: "Dday계산기, 디데이, 날짜계산" },
-            pxrem: { title: "PX ↔ REM 단위 변환기 - WebTools", desc: "반응형 웹 디자인을 위한 픽셀(PX)과 REM 상대 단위 간 실시간 변환 도구입니다.", keywords: "PXREM변환, CSS단위, 반응형웹" }
+            home: { title: "WebTools - 스마트 웹 도구 모음", desc: "IP조회, 인터넷 속도체크, 실시간 글자수 계산 등 스마트 웹 도구 모음입니다.", keywords: "웹도구, IP조회, 속도체크, 글자수세기" },
+            ip: { title: "내 IP 주소 및 위치 조회 - WebTools", desc: "내 공인 IP 주소와 통신사, 위치 지도를 확인하세요.", keywords: "IP조회, 내IP, IP위치, 통신사조회" },
+            speed: { title: "인터넷 속도체크 (Speed Test) - WebTools", desc: "Cloudflare 멀티 스트림 기반 실시간 인터넷 다운로드 속도와 Ping을 정밀 측정합니다.", keywords: "인터넷속도체크, 속도측정, ping측정, Mbps" },
+            counter: { title: "실시간 글자수 세기 & 바이트 계산기 - WebTools", desc: "공백 포함/제외 글자 수와 바이트(Byte)를 실시간으로 계산해 드립니다.", keywords: "글자수세기, 바이트계산기" },
+            name: { title: "랜덤 이름 및 닉네임 생성기 - WebTools", desc: "판타지, 한글 세련된 이름, 브랜드명을 생성합니다.", keywords: "이름생성기, 닉네임생성기" },
+            utm: { title: "UTM 파라미터 URL 생성기 - WebTools", desc: "GA4 마케팅 유입 경로 분석용 UTM 링크를 자동 생성합니다.", keywords: "UTM생성기, GA4" },
+            line: { title: "줄바꿈 및 공백 제거기 - WebTools", desc: "불필요한 엔터값과 공백을 일괄 정리합니다.", keywords: "줄바꿈제거, 엔터제거" },
+            case: { title: "영문 대소문자 변환기 - WebTools", desc: "대소문자, Title Case, snake_case 변환기", keywords: "대소문자변환" },
+            json: { title: "JSON 정렬기 & 문법 검증기 - WebTools", desc: "JSON 데이터를 보기 좋게 정렬하거나 한 줄로 압축합니다.", keywords: "JSON정렬" },
+            base64: { title: "Base64 인코더 / 디코더 - WebTools", desc: "Base64 인코딩 및 디코딩 도구입니다.", keywords: "Base64" },
+            url: { title: "URL 인코더 / 디코더 - WebTools", desc: "URL 퍼센트 인코딩/디코딩 도구입니다.", keywords: "URL인코딩" },
+            dday: { title: "D-Day 계산기 - WebTools", desc: "목표 날짜까지 남은 일수를 계산합니다.", keywords: "Dday계산기" },
+            pxrem: { title: "PX ↔ REM 단위 변환기 - WebTools", desc: "PX와 REM 상대 단위 간 실시간 변환 도구입니다.", keywords: "PXREM변환" }
         };
 
         let mapInstance = null, mapMarker = null;
@@ -775,7 +666,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // 모든 페이지 전환 이벤트 리스너 통합 등록
             document.querySelectorAll('[data-target]').forEach(elem => {
                 elem.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -785,7 +675,6 @@
                 });
             });
 
-            // 드롭다운 토글
             const dropdownToggle = document.getElementById('dropdown-toggle');
             const dropdown = document.getElementById('tools-dropdown');
             if (dropdownToggle && dropdown) {
@@ -796,14 +685,12 @@
                 });
             }
 
-            // 외부 영역 클릭 시 드롭다운 닫기
             document.addEventListener('click', () => {
                 if (dropdown && dropdown.classList.contains('show')) {
                     dropdown.classList.remove('show');
                 }
             });
 
-            // IP 조회 기능 초기화
             getSystemInfo();
             fetchIPData();
 
@@ -824,54 +711,43 @@
                 });
             }
 
-            // 속도 측정 바인딩
             const btnSpeed = document.getElementById('btn-start-speed');
             if (btnSpeed) btnSpeed.addEventListener('click', runSpeedTest);
 
-            // 글자수 세기
             const textInput = document.getElementById('text-input');
             if (textInput) textInput.addEventListener('input', countText);
 
-            // 이름 생성기
             document.querySelectorAll('.btn-name-gen').forEach(btn => {
                 btn.addEventListener('click', () => generateName(btn.getAttribute('data-type')));
             });
 
-            // UTM 생성기
             const btnGenUtm = document.getElementById('btn-gen-utm');
             if (btnGenUtm) btnGenUtm.addEventListener('click', generateUTM);
 
-            // 줄바꿈 제거
             document.querySelectorAll('.btn-line-proc').forEach(btn => {
                 btn.addEventListener('click', () => processText(btn.getAttribute('data-action')));
             });
 
-            // 대소문자 변환
             document.querySelectorAll('.btn-case-conv').forEach(btn => {
                 btn.addEventListener('click', () => convertCase(btn.getAttribute('data-case')));
             });
 
-            // JSON
             const btnJsonPretty = document.getElementById('btn-json-pretty');
             const btnJsonMinify = document.getElementById('btn-json-minify');
             if (btnJsonPretty) btnJsonPretty.addEventListener('click', formatJSON);
             if (btnJsonMinify) btnJsonMinify.addEventListener('click', minifyJSON);
 
-            // Base64
             document.querySelectorAll('.btn-b64-proc').forEach(btn => {
                 btn.addEventListener('click', () => processBase64(btn.getAttribute('data-type')));
             });
 
-            // URL
             document.querySelectorAll('.btn-url-proc').forEach(btn => {
                 btn.addEventListener('click', () => processURL(btn.getAttribute('data-type')));
             });
 
-            // D-Day
             const ddayDate = document.getElementById('dday-date');
             if (ddayDate) ddayDate.addEventListener('change', calcDday);
 
-            // PX REM
             const basePx = document.getElementById('base-px');
             const valPx = document.getElementById('val-px');
             const valRem = document.getElementById('val-rem');
@@ -879,7 +755,6 @@
             if (valRem) valRem.addEventListener('input', () => calcPxRem('rem'));
             if (basePx) basePx.addEventListener('input', () => calcPxRem('px'));
 
-            // URL 쿼리 파라미터 초기 로딩
             const params = new URLSearchParams(window.location.search);
             const initialTool = params.get('tool') || 'home';
             switchPage(initialTool, false);
@@ -940,7 +815,7 @@
             }
         }
 
-        // 인터넷 속도 측정 함수 (실시간 프로그레스 바 포함)
+        // 고성능 멀티 스트림 인터넷 속도체크 로직
         async function runSpeedTest() {
             const btn = document.getElementById('btn-start-speed');
             const status = document.getElementById('speed-status');
@@ -954,29 +829,24 @@
             speedDisplay.textContent = '0.00';
             pingDisplay.textContent = '-';
             jitterDisplay.textContent = '-';
-            
-            progressBar.classList.add('active-pulse');
-            progressBar.style.width = '5%';
+            progressBar.style.width = '0%';
 
-            // 1. Ping 및 Jitter 측정
+            // 1. Ping & Jitter 측정
             status.textContent = '지연시간(Ping) 측정 중...';
             const pings = [];
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 4; i++) {
                 const start = performance.now();
                 try {
-                    await fetch('https://httpbin.org/get?t=' + Math.random(), { cache: 'no-store' });
+                    await fetch('https://speed.cloudflare.com/__down?bytes=0&t=' + Math.random(), { cache: 'no-store' });
                     const end = performance.now();
                     pings.push(end - start);
                 } catch (e) {}
-                progressBar.style.width = `${(i + 1) * 4}%`; // Ping 진행률 (0~20%)
             }
 
-            let avgPing = 0;
             if (pings.length > 0) {
-                avgPing = pings.reduce((a, b) => a + b) / pings.length;
+                const avgPing = pings.reduce((a, b) => a + b) / pings.length;
                 pingDisplay.textContent = Math.round(avgPing) + ' ms';
                 
-                // Jitter 계산
                 let jitterSum = 0;
                 for (let i = 0; i < pings.length - 1; i++) {
                     jitterSum += Math.abs(pings[i] - pings[i+1]);
@@ -985,56 +855,54 @@
                 jitterDisplay.textContent = Math.round(avgJitter) + ' ms';
             }
 
-            // 2. 다운로드 속도 측정 (실시간 데이터 바이트 수신 비율 애니메이션)
-            status.textContent = '다운로드 속도 측정 중...';
-            const testFileUrl = 'https://fetch-proxy.fastly.com/5MB.bin?t=' + Math.random();
-            const fallbackUrl = 'https://picsum.photos/2000/2000?t=' + Math.random();
-            const totalEstimatedBytes = 5 * 1024 * 1024; // 약 5MB 기준
+            // 2. Cloudflare CDN 6개 병렬 스트림 다운로드 속도 측정
+            status.textContent = '다운로드 속도 측정 중 (멀티 스트림)...';
+            const chunkSize = 25000000; // 25MB
+            const parallelConnections = 6; // 6개 병렬 연결
+            const targetUrl = `https://speed.cloudflare.com/__down?bytes=${chunkSize}`;
+            const totalEstimatedBytes = chunkSize * parallelConnections;
 
-            const startTime = performance.now();
             let loadedBytes = 0;
+            const startTime = performance.now();
 
             try {
-                const response = await fetch(testFileUrl, { cache: 'no-store' });
-                if (!response.ok) throw new Error('네트워크 응답 실패');
-                
-                const reader = response.body.getReader();
+                const streams = Array.from({ length: parallelConnections }, async (_, index) => {
+                    const response = await fetch(`${targetUrl}&r=${Math.random()}_${index}`, { cache: 'no-store' });
+                    if (!response.body) return;
+                    const reader = response.body.getReader();
 
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    loadedBytes += value.length;
-                    
-                    const duration = (performance.now() - startTime) / 1000;
-                    if (duration > 0) {
-                        const currentMbps = ((loadedBytes * 8) / (1024 * 1024) / duration).toFixed(2);
-                        speedDisplay.textContent = currentMbps;
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
 
-                        // 진행률 계산 (20% ~ 95%)
-                        const downloadPercent = Math.min(75, Math.floor((loadedBytes / totalEstimatedBytes) * 75));
-                        progressBar.style.width = `${20 + downloadPercent}%`;
+                        loadedBytes += value.length;
+                        const duration = (performance.now() - startTime) / 1000;
+
+                        if (duration > 0.05) {
+                            const currentMbps = ((loadedBytes * 8) / (1024 * 1024) / duration).toFixed(2);
+                            speedDisplay.textContent = currentMbps;
+
+                            const percent = Math.min(100, Math.floor((loadedBytes / totalEstimatedBytes) * 100));
+                            progressBar.style.width = `${percent}%`;
+                        }
                     }
-                }
-            } catch (e) {
-                // 대체 자원 테스트
-                try {
-                    progressBar.style.width = '50%';
-                    const altStart = performance.now();
-                    const altRes = await fetch(fallbackUrl, { cache: 'no-store' });
-                    const blob = await altRes.blob();
-                    const altDuration = (performance.now() - altStart) / 1000;
-                    const altMbps = ((blob.size * 8) / (1024 * 1024) / altDuration).toFixed(2);
-                    speedDisplay.textContent = altMbps;
-                } catch (err) {
-                    status.textContent = '측정에 실패했습니다. 네트워크 상태를 확인하세요.';
-                }
-            }
+                });
 
-            progressBar.style.width = '100%';
-            progressBar.classList.remove('active-pulse');
-            status.textContent = '측정이 완료되었습니다.';
-            btn.disabled = false;
-            btn.textContent = '다시 측정';
+                await Promise.all(streams);
+
+                const totalDuration = (performance.now() - startTime) / 1000;
+                const finalMbps = ((loadedBytes * 8) / (1024 * 1024) / totalDuration).toFixed(2);
+
+                speedDisplay.textContent = finalMbps;
+                progressBar.style.width = '100%';
+                status.textContent = '속도체크가 완료되었습니다.';
+            } catch (e) {
+                console.error("SpeedTest Error:", e);
+                status.textContent = '측정 중 오류가 발생했습니다.';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '다시 측정';
+            }
         }
 
         function countText() {
@@ -1053,9 +921,9 @@
         }
 
         const nameData = {
-            fantasy: ['그림자 기사', '불꽃 아치메이지', '실버 윈드', '드래곤 슬레이어', '아르카나 워커', '나이트 브링어'],
-            korean: ['김서준', '이도윤', '박지민', '최유진', '정하은', '강민재', '윤서아'],
-            brand: ['NextFlow', 'CoreLab', 'PixelCraft', 'DataPulse', 'VividShift', 'NovaTech']
+            fantasy: ['그림자 기사', '불꽃 아치메이지', '실버 윈드', '드래곤 슬레이어', '아르카나 워커'],
+            korean: ['김서준', '이도윤', '박지민', '최유진', '정하은', '강민재'],
+            brand: ['NextFlow', 'CoreLab', 'PixelCraft', 'DataPulse', 'VividShift']
         };
         function generateName(type) {
             const list = nameData[type];
