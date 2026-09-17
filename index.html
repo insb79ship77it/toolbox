@@ -283,7 +283,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
+            padding: 1rem 1.5rem;
         }
         .speed-value-display {
             font-size: 3.5rem;
@@ -308,6 +308,17 @@
             background: linear-gradient(90deg, #3182f6, #00c6ff);
             border-radius: 5px;
             transition: width 0.15s linear;
+        }
+        .notice-badge {
+            background-color: #fff8f0;
+            border: 1px solid #ffe0c2;
+            color: #d96b00;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
         }
 
         footer {
@@ -416,6 +427,11 @@
             <div class="card" style="text-align: center;">
                 <div class="card-title" style="justify-content: center;">⚡ 인터넷 다운로드 & 핑 속도체크</div>
                 
+                <!-- 중단필요 안내 문구 추가 -->
+                <div class="notice-badge">
+                    중단필요 : 유튜브 스트리밍, 다운로드, 업데이트 등 중단하고 사용해주세요
+                </div>
+
                 <div class="speed-gauge-container">
                     <div style="font-size: 0.9rem; color: var(--text-secondary);" id="speed-status">측정 버튼을 눌러주세요.</div>
                     <div class="speed-value-display" id="speed-download">0.00</div>
